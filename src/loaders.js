@@ -8,6 +8,9 @@ import {getDataFromEnv} from './utils'
 import deepExtend from 'deep-extend';
 import {getService, SERVICE_NAMES} from './bottle';
 import postCssPlugins from './postCssPlugins'
+import resolveRc from 'babel-loader/lib/resolve-rc.js'
+
+
 /*
  - loaders
  - loaderChains
@@ -24,7 +27,9 @@ const postCssLoader = () => {
     const dipConfig = getService(SERVICE_NAMES.dipConfig);
 
     return getDataFromEnv({
-        loader: `postcss-loader?{"sourceMap":${dipConfig.sourceMap}}`,
+        loader: `postcss-loader?${JSON.stringify({
+            sourceMap: dipConfig.sourceMap
+        })}`,
         // 这里的options貌似没用，postcss将读取postcss.config.js中的配置
         options: {}
     });
@@ -66,11 +71,16 @@ const urlLoader = () => getDataFromEnv({
 
 const babelLoader = () => {
     const dipConfig = getService(SERVICE_NAMES.dipConfig);
+
+    // console.log(`\nApply babel config: ${resolveRc(process.cwd()+'/test')}`);
+
     return getDataFromEnv({
-        loader: 'babel-loader',
-        options: {
+        loader: `babel-loader?${JSON.stringify({
             sourceMap: dipConfig.sourceMap,
-        },
+            cacheDirectory: true,
+        })}`,
+        // seems like options does not working here
+        options: {},
     });
 };
 

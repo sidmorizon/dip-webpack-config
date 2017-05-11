@@ -7,15 +7,14 @@ import browsersList from './browsersList';
 import {DipWebpackConfigMaker,ALL_LOADER_RULE_NAMES,ALL_PLUGIN_NAMES} from "./DipWebpackConfigMaker";
 
 /*
- - 修改plugins和module.rules(loaders)
- - 外部可以通过webpackMerge再次更改
  - XM_*** 全局常量注入
- - babel配置统一为 .babelrc
  - hash enabled/disable
- - code split & _babelEs6TempHelper_
- - babel-regenerator-runtime vendor entry
+ - code split (改成了babel-plugin-transform-runtime)
+ -  vendor entry & polyfill
  - Tree Shaking
  - sassLoaderOption 也改成配置文件形式载入
+ - 生产环境下，是否对非生产环境和react的代码做了压缩
+ - 重新构建yarn.lock
 
  - .babelrc
  - .browserslistrc

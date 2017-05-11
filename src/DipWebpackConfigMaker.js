@@ -57,7 +57,6 @@ class DipWebpackConfigMaker {
 
     constructor(myDipConfig) {
         this._initEnv();
-
         this._setDipConfig(myDipConfig);
         this._initLoaderRules();
         this._initPlugins();
@@ -140,9 +139,7 @@ class DipWebpackConfigMaker {
             ],
             [ENV_TYPES.production]: [],
         });
-        this.defaultVendorEntry = getDataFromEnv([
-            'babel-regenerator-runtime'
-        ])
+        this.defaultVendorEntry = getDataFromEnv([])
     }
 
     removeRules(ruleName) {
@@ -174,16 +171,16 @@ class DipWebpackConfigMaker {
                 tls: 'empty',
             },
             entry: {
-                app: [...this.defaultAppEntry, ...dipConfig.appEntry],
-                vendors: [...this.defaultVendorEntry, ...dipConfig.vendorEntry]
+                app: [],
+                vendors: [],
             },
             devServer: {
                 // 传递给webpack-dev-server的配置
                 // overlay: true // 增加报错浮层
             },
             output: {
-                path: dipConfig.distPath,
-                publicPath: dipConfig.publicPath,
+                path: null,
+                publicPath: null,
                 filename: '[name].[chunkhash].js',
                 // 不能是 [name].[chunkhash].js.map 否则sourcemap会不正确
                 // 因为sourcemap不仅仅是js，还有css的。 [file]就相当于前面的filename
@@ -199,11 +196,25 @@ class DipWebpackConfigMaker {
             plugins: [],
         };
 
+
         if (dipConfig.sourceMap) {
             this.merge({
                 devtool: isProductionEnv() ? 'source-map' : 'cheap-module-source-map'
             });
         }
+
+        const entrySection = this.finalWebpackConfig.entry;
+        entrySection.app = [...this.defaultAppEntry, ...dipConfig.appEntry];
+        if (entrySection.app.length <= 0) {
+            delete entrySection.app;
+        }
+        entrySection.vendors = [...this.defaultVendorEntry, ...dipConfig.vendorEntry];
+        if (entrySection.vendors.length <= 0) {
+            delete entrySection.vendors;
+        }
+
+        this.finalWebpackConfig.output.path = dipConfig.distPath;
+        this.finalWebpackConfig.output.publicPath = dipConfig.publicPath;
 
         this.finalWebpackConfig.module.rules = [
             ...Object.values(this.rules),

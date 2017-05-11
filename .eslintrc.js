@@ -2,6 +2,8 @@
 // https://github.com/vuejs-templates/webpack/blob/master/template/.eslintrc.js
 // TODO 挪到xm-webpack-config中，然后用deep-assign合并配置
 
+
+
 module.exports = {
     "parser": "babel-eslint",
     "extends": "eslint-config-airbnb",
@@ -79,7 +81,7 @@ module.exports = {
         // 强制未使用this的实例方法改为static方法
         'class-methods-use-this': ['off'],
         // 因为css-module必须使用这种语法 styles['addRateTag'] 才能支持跳转，所以这个规则关闭了
-        'dot-notation':['off'],
+        'dot-notation': ['off'],
     },
     "parserOptions": {
         "ecmaFeatures": {
