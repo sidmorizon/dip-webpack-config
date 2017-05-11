@@ -3,12 +3,12 @@
  */
 'use strict'
 import Path from 'path';
-import babelConfig from './babelConfig';
 import {getDataFromEnv} from './utils'
 import deepExtend from 'deep-extend';
 import {getService, SERVICE_NAMES} from './bottle';
 import postCssPlugins from './postCssPlugins'
 import resolveRc from 'babel-loader/lib/resolve-rc.js'
+import eslintFriendlyFormatter from 'eslint-friendly-formatter';
 
 
 /*
@@ -117,7 +117,7 @@ const reactHotLoader = () => getDataFromEnv({
 const eslintLoader = () => getDataFromEnv({
     loader: 'eslint-loader',
     options: {
-        formatter: require('eslint-friendly-formatter')
+        formatter: eslintFriendlyFormatter,
     },
 });
 
