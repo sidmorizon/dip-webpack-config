@@ -3,8 +3,9 @@
  */
 // entry.scss import
 import './entry.scss';
-import 'react';
+// import 'react';
 
-window.ABC = 1983;
+window.ABC = {NAME: 1, age: 2};
+window.A1999 = {...window.ABC, c: 999};
 // console.log('hello')
 

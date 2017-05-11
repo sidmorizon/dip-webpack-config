@@ -1,0 +1,5 @@
+# 行内ignore请参考： http://eslint.org/docs/user-guide/configuring.html#disabling-rules-with-inline-comments
+# 文件ignore请参考： http://eslint.org/docs/user-guide/command-line-interface#ignoring-files-from-linting
+
+**/node_modules/**
+_babelEs6TempHelper_.js

@@ -11,6 +11,7 @@ import * as plugins from './plugins';
 import {getDataFromEnv, isProductionEnv} from "./utils";
 import {ENV_TYPES} from "./consts";
 import webpackMerge from 'webpack-merge';
+import assert from 'assert';
 import webpack from 'webpack';
 
 function getDevServer() {
@@ -22,27 +23,53 @@ function getDevServer() {
     return DEV_SERVER;
 }
 
+const ALL_PLUGIN_NAMES = {
+    commonsChunkPlugin: 'commonsChunkPlugin',
+    htmlWebpackPlugin: 'htmlWebpackPlugin',
+    inlineChunkWebpackPlugin: 'inlineChunkWebpackPlugin',
+    definePlugin: 'definePlugin',
+    loaderOptionsPlugin: 'loaderOptionsPlugin',
+    cssExtract: 'cssExtract',
+    scssExtract: 'scssExtract',
+    cssModulesExtract: 'cssModulesExtract',
+    circularDependencyPlugin: 'circularDependencyPlugin',
+    friendlyErrorsWebpackPlugin: 'friendlyErrorsWebpackPlugin',
+    hotModuleReplacementPlugin: 'hotModuleReplacementPlugin',
+    uglifyJsPlugin: 'uglifyJsPlugin',
+};
+const ALL_LOADER_RULE_NAMES = {
+    htmlLoaderRule: 'htmlLoaderRule',
+    externalHtmlLoaderRule: 'externalHtmlLoaderRule',
+    jsLoaderRule: 'jsLoaderRule',
+    sassLoaderRule: 'sassLoaderRule',
+    moduleSassLoaderRule: 'moduleSassLoaderRule',
+    cssLoaderRule: 'cssLoaderRule',
+    fileUrlLoaderRule: 'fileUrlLoaderRule',
+    eslintLoaderRule: 'eslintLoaderRule',
+};
 
 class DipWebpackConfigMaker {
     rules = {};
     plugins = {};
-    finalWebpackConfig = {};
+    finalWebpackConfig = null;
     defaultAppEntry = [];
     defaultVendorEntry = [];
 
     constructor(myDipConfig) {
         this._initEnv();
-        clearService();
+
         this._setDipConfig(myDipConfig);
-        this._initRules();
+        this._initLoaderRules();
         this._initPlugins();
         this._initEnties();
     }
 
     _initEnv() {
         if (!process.env.NODE_ENV) {
+            // reset NODE_ENV to development if not set before
             process.env.NODE_ENV = ENV_TYPES.development;
         }
+        clearService();
     }
 
     _setDipConfig(myDipConfig) {
@@ -57,18 +84,18 @@ class DipWebpackConfigMaker {
         setService(SERVICE_NAMES.dipConfig, getDeepConfigSerivce);
     }
 
-    _initRules() {
+    _initLoaderRules() {
         const commonRules = {
-            'htmlLoaderRule': loaderRules.htmlLoaderRule(),
-            'externalHtmlLoaderRule': loaderRules.externalHtmlLoaderRule(),
-            'jsLoaderRule': loaderRules.jsLoaderRule(),
-            'sassLoaderRule': loaderRules.sassLoaderRule(),
-            'moduleSassLoaderRule': loaderRules.moduleSassLoaderRule(),
-            'cssLoaderRule': loaderRules.cssLoaderRule(),
-            'fileUrlLoaderRule': loaderRules.fileUrlLoaderRule(),
+            [ALL_LOADER_RULE_NAMES.htmlLoaderRule]: loaderRules.htmlLoaderRule(),
+            [ALL_LOADER_RULE_NAMES.externalHtmlLoaderRule]: loaderRules.externalHtmlLoaderRule(),
+            [ALL_LOADER_RULE_NAMES.jsLoaderRule]: loaderRules.jsLoaderRule(),
+            [ALL_LOADER_RULE_NAMES.sassLoaderRule]: loaderRules.sassLoaderRule(),
+            [ALL_LOADER_RULE_NAMES.moduleSassLoaderRule]: loaderRules.moduleSassLoaderRule(),
+            [ALL_LOADER_RULE_NAMES.cssLoaderRule]: loaderRules.cssLoaderRule(),
+            [ALL_LOADER_RULE_NAMES.fileUrlLoaderRule]: loaderRules.fileUrlLoaderRule(),
         };
         const devRules = deepExtend({}, commonRules, {
-            'eslintLoaderRule': loaderRules.eslintLoaderRule(),
+            [ALL_LOADER_RULE_NAMES.eslintLoaderRule]: loaderRules.eslintLoaderRule(),
         });
         const prdRules = deepExtend({}, commonRules, {});
 
@@ -80,23 +107,24 @@ class DipWebpackConfigMaker {
 
     _initPlugins() {
         const commonPlugins = {
-            'commonsChunkPlugin': plugins.commonsChunkPlugin(),
-            'htmlWebpackPlugin': plugins.htmlWebpackPlugin(),
-            'inlineChunkWebpackPlugin': plugins.inlineChunkWebpackPlugin(),
-            'definePlugin': plugins.definePlugin(),
-            'cssExtract': plugins.extractTextPlugins.cssExtract,
-            'scssExtract': plugins.extractTextPlugins.scssExtract,
-            'cssModulesExtract': plugins.extractTextPlugins.cssModulesExtract,
+            [ALL_PLUGIN_NAMES.loaderOptionsPlugin]: plugins.loaderOptionsPlugin(),
+            [ALL_PLUGIN_NAMES.commonsChunkPlugin]: plugins.commonsChunkPlugin(),
+            [ALL_PLUGIN_NAMES.htmlWebpackPlugin]: plugins.htmlWebpackPlugin(),
+            [ALL_PLUGIN_NAMES.inlineChunkWebpackPlugin]: plugins.inlineChunkWebpackPlugin(),
+            [ALL_PLUGIN_NAMES.definePlugin]: plugins.definePlugin(),
+            [ALL_PLUGIN_NAMES.cssExtract]: plugins.extractTextPlugins.cssExtract,
+            [ALL_PLUGIN_NAMES.scssExtract]: plugins.extractTextPlugins.scssExtract,
+            [ALL_PLUGIN_NAMES.cssModulesExtract]: plugins.extractTextPlugins.cssModulesExtract,
         };
         const devPlugins = {
             ...commonPlugins,
-            'circularDependencyPlugin': plugins.circularDependencyPlugin(),
-            'friendlyErrorsWebpackPlugin': plugins.friendlyErrorsWebpackPlugin(),
-            'hotModuleReplacementPlugin': plugins.hotModuleReplacementPlugin(),
+            [ALL_PLUGIN_NAMES.circularDependencyPlugin]: plugins.circularDependencyPlugin(),
+            [ALL_PLUGIN_NAMES.friendlyErrorsWebpackPlugin]: plugins.friendlyErrorsWebpackPlugin(),
+            [ALL_PLUGIN_NAMES.hotModuleReplacementPlugin]: plugins.hotModuleReplacementPlugin(),
         };
         const prdPlugins = {
             ...commonPlugins,
-            'uglifyJsPlugin': plugins.uglifyJsPlugin(),
+            [ALL_PLUGIN_NAMES.uglifyJsPlugin]: plugins.uglifyJsPlugin(),
         };
         this.plugins = getDataFromEnv(commonPlugins, {
             [ENV_TYPES.development]: devPlugins,
@@ -117,6 +145,22 @@ class DipWebpackConfigMaker {
         ])
     }
 
+    removeRules(ruleName) {
+        assert.ok(!this.finalWebpackConfig, 'you should run removeRules() before make()');
+        if (ruleName) {
+            delete this.rules[ruleName];
+        }
+        return this;
+    }
+
+    removePlugins(pluginName) {
+        assert.ok(!this.finalWebpackConfig, 'you should run removePlugins() before make()');
+        if (pluginName) {
+            delete this.plugins[pluginName];
+        }
+        return this;
+    }
+
     make() {
         const dipConfig = getService(SERVICE_NAMES.dipConfig);
 
@@ -133,7 +177,8 @@ class DipWebpackConfigMaker {
                 app: [...this.defaultAppEntry, ...dipConfig.appEntry],
                 vendors: [...this.defaultVendorEntry, ...dipConfig.vendorEntry]
             },
-            devServer: { // 传递给webpack-dev-server的配置
+            devServer: {
+                // 传递给webpack-dev-server的配置
                 // overlay: true // 增加报错浮层
             },
             output: {
@@ -145,23 +190,14 @@ class DipWebpackConfigMaker {
                 sourceMapFilename: "[file].map",
                 chunkFilename: "chunk.[name].[id].[chunkhash].js"
             },
+
             module: {
+                // keep empty array here
                 rules: [],
             },
+            // keep empty array here
             plugins: [],
         };
-
-
-        this.finalWebpackConfig.module.rules = [
-            ...this.finalWebpackConfig.module.rules,
-            ...Object.values(this.rules),
-        ];
-        this.finalWebpackConfig.plugins = [
-            ...this.finalWebpackConfig.plugins,
-            ...Object.values(this.plugins),
-        ];
-
-        // console.log(this.finalWebpackConfig.plugins);
 
         if (dipConfig.sourceMap) {
             this.merge({
@@ -169,19 +205,35 @@ class DipWebpackConfigMaker {
             });
         }
 
+        this.finalWebpackConfig.module.rules = [
+            ...Object.values(this.rules),
+        ];
+        console.log(`\nApply rules: \n- ${Object.keys(this.rules).join('\n- ')} `);
+
+        this.finalWebpackConfig.plugins = [
+            ...Object.values(this.plugins),
+        ];
+        console.log(`\nApply plugins: \n- ${Object.keys(this.plugins).join('\n- ')} \n`);
+
         return this;
     }
 
     merge(myWebpackConfig) {
-        webpackMerge(this.finalWebpackConfig, myWebpackConfig);
+        assert.ok(this.finalWebpackConfig, 'please run make() first.');
+
+        this.finalWebpackConfig = webpackMerge(this.finalWebpackConfig, myWebpackConfig);
         return this;
     }
 
-    getWebpackConfig() {
+    output() {
+        assert.ok(this.finalWebpackConfig, 'please run make() first.');
+
         return this.finalWebpackConfig;
     }
 }
 
 export {
     DipWebpackConfigMaker,
+    ALL_PLUGIN_NAMES,
+    ALL_LOADER_RULE_NAMES,
 }

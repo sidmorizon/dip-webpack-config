@@ -39,3 +39,5 @@ jspm_packages
 
 lib/
 test/dist-prepare/
+.DS_Store
+_babelEs6TempHelper_.js

@@ -5,10 +5,9 @@
 const dip = require("../lib/index.js");
 const Path = require('path');
 
-
-const cfg = new dip.DipWebpackConfigMaker({
+const initDipConfig = {
     https: false,
-    sourceMap: false,
+    sourceMap: true,
     appEntry: ['./test/entry.js'],
     vendorEntry: [],
     commonChunks: [],
@@ -22,10 +21,21 @@ const cfg = new dip.DipWebpackConfigMaker({
             includePaths: [Path.join(process.cwd(), "src/sass")],
         }
     }
-})
-    .make()
-    .getWebpackConfig();
+};
 
-// console.log(JSON.stringify(cfg,null,4));
+const mergeWebpackConfig = {};
+
+const maker = new dip.DipWebpackConfigMaker(initDipConfig)
+    // .removeRules(dip.ALL_LOADER_RULE_NAMES.jsLoaderRule)
+    // .removePlugins(dip.ALL_PLUGIN_NAMES.uglifyJsPlugin)
+    .make()
+    .merge(mergeWebpackConfig);
+
+const cfg = maker.output();
+
+console.log(JSON.stringify(cfg, null, 4));
+
+console.log(`process.env.NODE_ENV = ${process.env.NODE_ENV}`);
 
 module.exports = cfg;
+

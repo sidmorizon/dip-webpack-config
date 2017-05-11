@@ -4,22 +4,25 @@
 'use strict';
 
 import browsersList from './browsersList';
-import {DipWebpackConfigMaker} from "./DipWebpackConfigMaker";
+import {DipWebpackConfigMaker,ALL_LOADER_RULE_NAMES,ALL_PLUGIN_NAMES} from "./DipWebpackConfigMaker";
 
 /*
- - reset env
- - 传入特定的dipConfig
  - 修改plugins和module.rules(loaders)
  - 外部可以通过webpackMerge再次更改
- - extract plugin
  - XM_*** 全局常量注入
- - sourcemap
+ - babel配置统一为 .babelrc
+ - hash enabled/disable
+ - code split & _babelEs6TempHelper_
+ - babel-regenerator-runtime vendor entry
+ - Tree Shaking
+ - sassLoaderOption 也改成配置文件形式载入
 
  - .babelrc
  - .browserslistrc
  - .env
  - .eslintrc
- - .PostCSSrc
+ - .eslintignore
+ - postcss.config.js
 
  - less loader
 
@@ -28,4 +31,6 @@ import {DipWebpackConfigMaker} from "./DipWebpackConfigMaker";
 export {
     browsersList,
     DipWebpackConfigMaker,
+    ALL_LOADER_RULE_NAMES,
+    ALL_PLUGIN_NAMES,
 }

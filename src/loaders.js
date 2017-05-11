@@ -20,15 +20,15 @@ function loaderCreator(originLoader) {
     }
 }
 
-const postCssLoader = () => getDataFromEnv({
-    loader: 'postcss-loader',
-    options: {
-        sourceMap: true, // 只能设置 true | inline 不能设置false
-        // TODO 将post-css的plugin加入到这里（autoPrefix、pxtorem等）
-        plugins: postCssPlugins // 这里不能使用plugin属性，请在后面的 postcss 属性配置
-        // parser: 'postcss-scss' // 如果需要使用 precss，需要设置这个parser
-    }
-});
+const postCssLoader = () => {
+    const dipConfig = getService(SERVICE_NAMES.dipConfig);
+
+    return getDataFromEnv({
+        loader: `postcss-loader?{"sourceMap":${dipConfig.sourceMap}}`,
+        // 这里的options貌似没用，postcss将读取postcss.config.js中的配置
+        options: {}
+    });
+};
 
 const sassLoader = () => {
     const dipConfig = getService(SERVICE_NAMES.dipConfig);
@@ -64,10 +64,15 @@ const urlLoader = () => getDataFromEnv({
     },
 });
 
-const babelLoader = () => getDataFromEnv({
-    loader: 'babel-loader',
-    options: babelConfig,
-});
+const babelLoader = () => {
+    const dipConfig = getService(SERVICE_NAMES.dipConfig);
+    return getDataFromEnv({
+        loader: 'babel-loader',
+        options: {
+            sourceMap: dipConfig.sourceMap,
+        },
+    });
+};
 
 const htmlLoader = () => getDataFromEnv({
     loader: 'html-loader',
@@ -109,7 +114,7 @@ const eslintLoader = () => getDataFromEnv({
 const postCssLoaderCreator = loaderCreator(postCssLoader);
 const sassLoaderCreator = loaderCreator(sassLoader);
 const cssLoaderCreator = loaderCreator(cssLoader);
-const styleLoaderCreator  = loaderCreator(styleLoader);
+const styleLoaderCreator = loaderCreator(styleLoader);
 const babelLoaderCreator = loaderCreator(babelLoader);
 const resolveUrlLoaderCreator = loaderCreator(resolveUrlLoader);
 const htmlLoaderCreator = loaderCreator(htmlLoader);

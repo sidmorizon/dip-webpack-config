@@ -103,6 +103,19 @@ const hotModuleReplacementPlugin = () => {
     return new webpack.HotModuleReplacementPlugin();
 };
 
+const loaderOptionsPlugin = () => {
+
+    // 这里用于兼容一些loader插件必须从 webpack.config.js 的根路径读取配置的情况
+    // 例如 postcss，读取debug属性等
+    return new webpack.LoaderOptionsPlugin({
+        // minimize: true,
+        // debug: true,
+        options: {
+            // context: __dirname
+        }
+    });
+};
+
 const extractTextPlugins = (() => {
     const scssExtract = new ExtractTextPlugin({
         filename: 'scss.[contenthash].css'
@@ -132,5 +145,6 @@ export {
     uglifyJsPlugin,
     friendlyErrorsWebpackPlugin,
     hotModuleReplacementPlugin,
+    loaderOptionsPlugin,
     extractTextPlugins
 }
