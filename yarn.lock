@@ -309,6 +309,14 @@ aws4@^1.2.1:
   version "1.6.0"
   resolved "http://registry.npm.taobao.org/aws4/download/aws4-1.6.0.tgz#83ef5ca860b2b32e4a0deedee8c771b9db57471e"
 
+babel-code-frame@7.0.0-alpha.9:
+  version "7.0.0-alpha.9"
+  resolved "http://registry.npm.taobao.org/babel-code-frame/download/babel-code-frame-7.0.0-alpha.9.tgz#b861deec3e9f744a30405137d4ad0216ccef0cba"
+  dependencies:
+    chalk "^1.1.0"
+    esutils "^2.0.2"
+    js-tokens "^3.0.0"
+
 babel-code-frame@^6.11.0, babel-code-frame@^6.16.0, babel-code-frame@^6.22.0:
   version "6.22.0"
   resolved "http://registry.npm.taobao.org/babel-code-frame/download/babel-code-frame-6.22.0.tgz#027620bee567a88c32561574e7fd0801d33118e4"
@@ -341,6 +349,28 @@ babel-core@^6.0.0, babel-core@^6.0.2, babel-core@^6.24.1:
     slash "^1.0.0"
     source-map "^0.5.0"
 
+babel-core@next:
+  version "7.0.0-alpha.9"
+  resolved "http://registry.npm.taobao.org/babel-core/download/babel-core-7.0.0-alpha.9.tgz#1868005f160dbcd2325e6b3472f3f9ea010a9313"
+  dependencies:
+    babel-code-frame "7.0.0-alpha.9"
+    babel-generator "7.0.0-alpha.9"
+    babel-helpers "7.0.0-alpha.9"
+    babel-messages "7.0.0-alpha.9"
+    babel-template "7.0.0-alpha.9"
+    babel-traverse "7.0.0-alpha.9"
+    babel-types "7.0.0-alpha.9"
+    babylon "7.0.0-beta.8"
+    convert-source-map "^1.1.0"
+    debug "^2.1.1"
+    json5 "^0.5.0"
+    lodash "^4.2.0"
+    micromatch "^2.3.11"
+    private "^0.1.6"
+    resolve "^1.3.2"
+    slash "^1.0.0"
+    source-map "^0.5.0"
+
 babel-eslint@^7.2.3:
   version "7.2.3"
   resolved "http://registry.npm.taobao.org/babel-eslint/download/babel-eslint-7.2.3.tgz#b2fe2d80126470f5c19442dc757253a897710827"
@@ -349,6 +379,18 @@ babel-eslint@^7.2.3:
     babel-traverse "^6.23.1"
     babel-types "^6.23.0"
     babylon "^6.17.0"
+
+babel-generator@7.0.0-alpha.9:
+  version "7.0.0-alpha.9"
+  resolved "http://registry.npm.taobao.org/babel-generator/download/babel-generator-7.0.0-alpha.9.tgz#4b4f41963e70beda87d94a3d358a6caf86172692"
+  dependencies:
+    babel-messages "7.0.0-alpha.9"
+    babel-types "7.0.0-alpha.9"
+    detect-indent "^4.0.0"
+    jsesc "^1.3.0"
+    lodash "^4.2.0"
+    source-map "^0.5.0"
+    trim-right "^1.0.1"
 
 babel-generator@^6.18.0, babel-generator@^6.24.1:
   version "6.24.1"
@@ -482,6 +524,12 @@ babel-helper-replace-supers@^6.24.1:
     babel-traverse "^6.24.1"
     babel-types "^6.24.1"
 
+babel-helpers@7.0.0-alpha.9:
+  version "7.0.0-alpha.9"
+  resolved "http://registry.npm.taobao.org/babel-helpers/download/babel-helpers-7.0.0-alpha.9.tgz#653f391654e0c18556e78d39fe58fd7f9e730f27"
+  dependencies:
+    babel-template "7.0.0-alpha.9"
+
 babel-helpers@^6.24.1:
   version "6.24.1"
   resolved "http://registry.npm.taobao.org/babel-helpers/download/babel-helpers-6.24.1.tgz#3471de9caec388e5c850e597e58a26ddf37602b2"
@@ -504,6 +552,10 @@ babel-loader@^7.0.0:
     find-cache-dir "^0.1.1"
     loader-utils "^1.0.2"
     mkdirp "^0.5.1"
+
+babel-messages@7.0.0-alpha.9:
+  version "7.0.0-alpha.9"
+  resolved "http://registry.npm.taobao.org/babel-messages/download/babel-messages-7.0.0-alpha.9.tgz#472b5e7158c4b3fded5eec0fb76f0ad930cb4ea8"
 
 babel-messages@^6.23.0:
   version "6.23.0"
@@ -1021,6 +1073,15 @@ babel-runtime@^6.18.0, babel-runtime@^6.2.0, babel-runtime@^6.22.0:
     core-js "^2.4.0"
     regenerator-runtime "^0.10.0"
 
+babel-template@7.0.0-alpha.9:
+  version "7.0.0-alpha.9"
+  resolved "http://registry.npm.taobao.org/babel-template/download/babel-template-7.0.0-alpha.9.tgz#e32c51ea13f8ed391ed4a1c9adcfd3ed9ca928dc"
+  dependencies:
+    babel-traverse "7.0.0-alpha.9"
+    babel-types "7.0.0-alpha.9"
+    babylon "7.0.0-beta.8"
+    lodash "^4.2.0"
+
 babel-template@^6.16.0, babel-template@^6.24.1, babel-template@^6.3.0, babel-template@^6.7.0:
   version "6.24.1"
   resolved "http://registry.npm.taobao.org/babel-template/download/babel-template-6.24.1.tgz#04ae514f1f93b3a2537f2a0f60a5a45fb8308333"
@@ -1029,6 +1090,19 @@ babel-template@^6.16.0, babel-template@^6.24.1, babel-template@^6.3.0, babel-tem
     babel-traverse "^6.24.1"
     babel-types "^6.24.1"
     babylon "^6.11.0"
+    lodash "^4.2.0"
+
+babel-traverse@7.0.0-alpha.9:
+  version "7.0.0-alpha.9"
+  resolved "http://registry.npm.taobao.org/babel-traverse/download/babel-traverse-7.0.0-alpha.9.tgz#749abf53c908ca80a8c96f5ca958d33732e0714f"
+  dependencies:
+    babel-code-frame "7.0.0-alpha.9"
+    babel-messages "7.0.0-alpha.9"
+    babel-types "7.0.0-alpha.9"
+    babylon "7.0.0-beta.8"
+    debug "^2.2.0"
+    globals "^9.0.0"
+    invariant "^2.2.0"
     lodash "^4.2.0"
 
 babel-traverse@^6.18.0, babel-traverse@^6.23.1, babel-traverse@^6.24.1:
@@ -1045,6 +1119,14 @@ babel-traverse@^6.18.0, babel-traverse@^6.23.1, babel-traverse@^6.24.1:
     invariant "^2.2.0"
     lodash "^4.2.0"
 
+babel-types@7.0.0-alpha.9:
+  version "7.0.0-alpha.9"
+  resolved "http://registry.npm.taobao.org/babel-types/download/babel-types-7.0.0-alpha.9.tgz#45e48b93cecdd9d306ab6953d7819622a7c1462b"
+  dependencies:
+    esutils "^2.0.2"
+    lodash "^4.2.0"
+    to-fast-properties "^1.0.1"
+
 babel-types@^6.18.0, babel-types@^6.19.0, babel-types@^6.23.0, babel-types@^6.24.1:
   version "6.24.1"
   resolved "http://registry.npm.taobao.org/babel-types/download/babel-types-6.24.1.tgz#a136879dc15b3606bda0d90c1fc74304c2ff0975"
@@ -1053,6 +1135,10 @@ babel-types@^6.18.0, babel-types@^6.19.0, babel-types@^6.23.0, babel-types@^6.24
     esutils "^2.0.2"
     lodash "^4.2.0"
     to-fast-properties "^1.0.1"
+
+babylon@7.0.0-beta.8:
+  version "7.0.0-beta.8"
+  resolved "http://registry.npm.taobao.org/babylon/download/babylon-7.0.0-beta.8.tgz#2bdc5ae366041442c27e068cce6f0d7c06ea9949"
 
 babylon@^6.11.0, babylon@^6.13.0, babylon@^6.15.0, babylon@^6.17.0:
   version "6.17.1"
