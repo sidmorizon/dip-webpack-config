@@ -18,6 +18,7 @@ import {DipWebpackConfigMaker, ALL_LOADER_RULE_NAMES, ALL_PLUGIN_NAMES} from './
  - unit-test
     * css\scss\module.scss
     * sassOption: includePaths
+    * moduleCss: import includePaths
 
  - .babelrc
  - .browserslistrc

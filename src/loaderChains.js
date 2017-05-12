@@ -25,8 +25,12 @@ const moduleSassLoaderChain = () => {
             localIdentName,
         }),
         loaders.postCssLoaderCreator(),
-        loaders.resolveUrlLoaderCreator(),
-        loaders.sassLoaderCreator(),
+        loaders.resolveUrlLoaderCreator({
+            sourceMap: dipConfig.sourceMap,
+        }),
+        loaders.sassLoaderCreator({
+            sourceMap: dipConfig.sourceMap,
+        }),
     ]);
 };
 
