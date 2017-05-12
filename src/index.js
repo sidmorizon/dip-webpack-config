@@ -17,6 +17,7 @@ import {DipWebpackConfigMaker, ALL_LOADER_RULE_NAMES, ALL_PLUGIN_NAMES} from './
  - 使用.babelrc.js替代.babelrc，需要升级babel-core到7.0正式版
  - unit-test
     * css\scss\module.scss
+    * sassOption: includePaths
 
  - .babelrc
  - .browserslistrc

@@ -17,15 +17,18 @@ import {getService, SERVICE_NAMES} from './bottle';
 function loaderCreator(originLoader) {
     return options => deepExtend({}, originLoader(), {options});
 }
+function stringLoaderWithOptions(loaderName, options) {
+    return `${loaderName}?${JSON.stringify(options)}`;
+}
 
 const postCssLoader = () => {
     const dipConfig = getService(SERVICE_NAMES.dipConfig);
 
     return getDataFromEnv({
-        loader: `postcss-loader?${JSON.stringify({
+        loader: stringLoaderWithOptions('postcss-loader', {
             sourceMap: dipConfig.sourceMap,
-        })}`,
-        // 这里的options貌似没用，postcss将读取postcss.config.js中的配置
+        }),
+        // seems like options does not working here
         options: {},
     });
 };
@@ -33,8 +36,11 @@ const postCssLoader = () => {
 const sassLoader = () => {
     const dipConfig = getService(SERVICE_NAMES.dipConfig);
     return getDataFromEnv({
-        loader: 'sass-loader',
-        options: deepExtend({}, dipConfig.loaderOptions.sassLoaderOption),
+        loader: stringLoaderWithOptions('sass-loader', {
+            ...dipConfig.loaderOptions.sassLoaderOption,
+        }),
+        // seems like options does not working here
+        options: {},
     });
 };
 
@@ -74,10 +80,10 @@ const babelLoader = () => {
     // console.log(`\nApply babel config: ${resolveRc(process.cwd()+'/test')}`);
 
     return getDataFromEnv({
-        loader: `babel-loader?${JSON.stringify({
+        loader: stringLoaderWithOptions('babel-loader', {
             sourceMap: dipConfig.sourceMap,
             cacheDirectory: true,
-        })}`,
+        }),
         // seems like options does not working here
         options: {},
     });
