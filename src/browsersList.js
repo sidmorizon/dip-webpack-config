@@ -1,8 +1,9 @@
 /**
  * Created by zuozhuo on 2017/5/9.
  */
-'use strict';
-import {getDataFromEnv} from "./utils";
+
+
+import {getDataFromEnv} from './utils';
 
 export default getDataFromEnv([
     'ie >= 8',
@@ -13,6 +14,6 @@ export default getDataFromEnv([
     'opera >= 23',
     'ios >= 7',
     'android >= 2.3',
-    'bb >= 10'
+    'bb >= 10',
 ]);
 

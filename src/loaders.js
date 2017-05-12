@@ -1,14 +1,11 @@
 /**
  * Created by zuozhuo on 2017/5/9.
  */
-'use strict'
-import Path from 'path';
-import {getDataFromEnv} from './utils'
 import deepExtend from 'deep-extend';
-import {getService, SERVICE_NAMES} from './bottle';
-import postCssPlugins from './postCssPlugins'
-import resolveRc from 'babel-loader/lib/resolve-rc.js'
 import eslintFriendlyFormatter from 'eslint-friendly-formatter';
+// import resolveRc from 'babel-loader/lib/resolve-rc.js';
+import {getDataFromEnv} from './utils';
+import {getService, SERVICE_NAMES} from './bottle';
 
 
 /*
@@ -18,9 +15,7 @@ import eslintFriendlyFormatter from 'eslint-friendly-formatter';
  */
 
 function loaderCreator(originLoader) {
-    return function (options) {
-        return deepExtend({}, originLoader(), {options});
-    }
+    return options => deepExtend({}, originLoader(), {options});
 }
 
 const postCssLoader = () => {
@@ -28,10 +23,10 @@ const postCssLoader = () => {
 
     return getDataFromEnv({
         loader: `postcss-loader?${JSON.stringify({
-            sourceMap: dipConfig.sourceMap
+            sourceMap: dipConfig.sourceMap,
         })}`,
         // 这里的options貌似没用，postcss将读取postcss.config.js中的配置
-        options: {}
+        options: {},
     });
 };
 
@@ -48,12 +43,12 @@ const cssLoader = () => getDataFromEnv({
     options: {
         autoprefixer: false,
         restructuring: false,
-    }
+    },
 });
 
 const styleLoader = () => getDataFromEnv({
     loader: 'style-loader',
-    options: {}
+    options: {},
 });
 
 const resolveUrlLoader = () => getDataFromEnv({
@@ -88,19 +83,19 @@ const htmlLoader = () => getDataFromEnv({
     loader: 'html-loader',
     options: {
         ignoreCustomFragments: [
-            /\{\{.*?\}\}/
+            /\{\{.*?\}\}/,
         ],
-        minimize: false,//开启html压缩后貌似编译报错,而且编译非常慢
+        minimize: false, // 开启html压缩后貌似编译报错,而且编译非常慢
         // 需要处理的图片和js\css的md5戳
         attrs: ['img:src', 'link:href', 'script:src'],
-    }
+    },
 });
 
 const fileLoader = () => getDataFromEnv({
     loader: 'file-loader',
     options: {
         name: '[path][name].[hash:8].[ext]',
-    }
+    },
 });
 
 const extractLoader = () => getDataFromEnv({
@@ -108,7 +103,8 @@ const extractLoader = () => getDataFromEnv({
     options: {},
 });
 
-// TODO Can't resolve 'react/lib/ReactMount' in '/Users/zuozhuo/workspace/zuozhuo/dip-webpack-config/test'
+// TODO Can't resolve 'react/lib/ReactMount'
+// in '/Users/zuozhuo/workspace/zuozhuo/dip-webpack-config/test'
 const reactHotLoader = () => getDataFromEnv({
     loader: 'react-hot-loader',
     options: {},
@@ -147,4 +143,4 @@ export {
     reactHotLoaderCreator,
     urlLoaderCreator,
     eslintLoaderCreator,
-}
+};

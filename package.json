@@ -58,7 +58,8 @@
   "main": "index.js",
   "scripts": {
     "test": "gulp && webpack --config ./test/webpack.config.test.js ",
-    "check-versions": "npm outdated"
+    "check-versions": "npm outdated",
+    "lint-fix": "eslint --fix"
   },
   "repository": {
     "type": "git",

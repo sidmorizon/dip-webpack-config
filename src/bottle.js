@@ -1,14 +1,13 @@
 /**
  * Created by zuozhuo on 2017/5/9.
  */
-'use strict'
 import Bottle from 'bottlejs';
 
 const BOTTLE_INSTANCE_NAME = 'GLOBAL';
 
 const bottle = new Bottle(BOTTLE_INSTANCE_NAME);
 const SERVICE_NAMES = {
-    dipConfig: 'dipConfig'
+    dipConfig: 'dipConfig',
 };
 
 function setService(serviceName, serviceImplement) {
@@ -28,4 +27,5 @@ export {
     getService,
     clearService,
     SERVICE_NAMES,
-}
+};
+

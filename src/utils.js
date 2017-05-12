@@ -1,12 +1,10 @@
 /**
  * Created by zuozhuo on 2017/5/9.
  */
-'use strict'
-import deepExtend from 'deep-extend';
-import {ENV_TYPES} from "./consts";
+
+import {ENV_TYPES} from './consts';
 
 function getDataFromEnv(data, allEnvData) {
-
     const currentEnv = process.env.NODE_ENV;
 
     let dataEnvSpecific;
@@ -25,5 +23,5 @@ function isProductionEnv() {
 export {
     getDataFromEnv,
     isProductionEnv,
-}
+};
 

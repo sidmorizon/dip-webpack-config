@@ -1,15 +1,17 @@
+/* eslint-disable no-unused-vars */
 /**
  * Created by zuozhuo on 2017/5/9.
  */
-'use strict'
+
 
 import autoprefixer from 'autoprefixer';
 import pxtorem from 'postcss-pxtorem';
 import browsersList from './browsersList';
 
 const autoPrefixerPostCssPlugin = autoprefixer({
-    browsers: browsersList
+    browsers: browsersList,
 });
+
 
 const pxToRemPostCssPlugin = pxtorem({
     rootValue: 16,
@@ -18,7 +20,7 @@ const pxToRemPostCssPlugin = pxtorem({
     propList: ['*'],
     replace: true,
     mediaQuery: false,
-    minPixelValue: 0
+    minPixelValue: 0,
 });
 
 export default [

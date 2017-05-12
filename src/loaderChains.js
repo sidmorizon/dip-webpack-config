@@ -1,11 +1,11 @@
 /**
  * Created by zuozhuo on 2017/5/9.
  */
-'use strict'
+
 
 import * as loaders from './loaders';
-import {getDataFromEnv, isProductionEnv} from './utils'
-import {ENV_TYPES} from './consts'
+import {getDataFromEnv, isProductionEnv} from './utils';
+import {ENV_TYPES} from './consts';
 import {getService, SERVICE_NAMES} from './bottle';
 
 
@@ -35,7 +35,7 @@ const cssLoaderChain = () => {
     ]);
 };
 
-const styleLoaderChain = ()=>{
+const styleLoaderChain = () => {
     return getDataFromEnv([
         loaders.styleLoaderCreator(),
     ]);
@@ -70,7 +70,7 @@ const jsLoaderChain = () => getDataFromEnv([
 ], {
     [ENV_TYPES.development]: [
         // TODO 这个已经挪到babelrc中了
-        //loaders.reactHotLoaderCreator(),
+        // loaders.reactHotLoaderCreator(),
         loaders.babelLoaderCreator(),
     ],
     [ENV_TYPES.production]: [
@@ -97,4 +97,4 @@ export {
     jsLoaderChain,
     fileUrlLoaderChain,
     eslintLoaderChain,
-}
+};

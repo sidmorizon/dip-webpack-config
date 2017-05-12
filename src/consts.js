@@ -1,7 +1,6 @@
 /**
  * Created by zuozhuo on 2017/5/9.
  */
-'use strict'
 
 const ENV_TYPES = {
     production: 'production',
@@ -9,8 +8,7 @@ const ENV_TYPES = {
     test: 'test',
 };
 
-
-
 export {
     ENV_TYPES,
-}
+};
+

@@ -1,10 +1,10 @@
 /**
  * Created by zuozhuo on 2017/5/9.
  */
-'use strict';
+
 
 import browsersList from './browsersList';
-import {DipWebpackConfigMaker,ALL_LOADER_RULE_NAMES,ALL_PLUGIN_NAMES} from "./DipWebpackConfigMaker";
+import {DipWebpackConfigMaker, ALL_LOADER_RULE_NAMES, ALL_PLUGIN_NAMES} from './DipWebpackConfigMaker';
 
 /*
  - XM_*** 全局常量注入
@@ -17,6 +17,7 @@ import {DipWebpackConfigMaker,ALL_LOADER_RULE_NAMES,ALL_PLUGIN_NAMES} from "./Di
  - 重新构建yarn.lock
  - unit-test (jest)
  - npm outdated
+ - defaultEntry should be removable
 
  - .babelrc
  - .browserslistrc
@@ -34,4 +35,4 @@ export {
     DipWebpackConfigMaker,
     ALL_LOADER_RULE_NAMES,
     ALL_PLUGIN_NAMES,
-}
+};

@@ -1,18 +1,17 @@
 /**
  * Created by zuozhuo on 2017/5/10.
  */
-'use strict';
 import Path from 'path';
+import webpackMerge from 'webpack-merge';
+import assert from 'assert';
 import deepExtend from 'deep-extend';
-import dipConfig from './defaultDipConfig';
+import defaultDipConfig from './defaultDipConfig';
 import {clearService, setService, getService, SERVICE_NAMES} from './bottle';
 import * as loaderRules from './loaderRules';
 import * as plugins from './plugins';
-import {getDataFromEnv, isProductionEnv} from "./utils";
-import {ENV_TYPES} from "./consts";
-import webpackMerge from 'webpack-merge';
-import assert from 'assert';
-import webpack from 'webpack';
+import {getDataFromEnv, isProductionEnv} from './utils';
+import {ENV_TYPES} from './consts';
+
 
 function getDevServer() {
     const dipConfig = getService(SERVICE_NAMES.dipConfig);
@@ -72,14 +71,12 @@ class DipWebpackConfigMaker {
     }
 
     _setDipConfig(myDipConfig) {
-        const _dipConfig = deepExtend({}, dipConfig, myDipConfig);
+        const _dipConfig = deepExtend({}, defaultDipConfig, myDipConfig);
         if (!Path.isAbsolute(_dipConfig.distPath)) {
             //  将distPath纠正为绝对物理路径，避免webpack报错
             _dipConfig.distPath = Path.join(process.cwd(), _dipConfig.distPath);
         }
-        const getDeepConfigSerivce = function () {
-            return _dipConfig;
-        };
+        const getDeepConfigSerivce = () => _dipConfig;
         setService(SERVICE_NAMES.dipConfig, getDeepConfigSerivce);
     }
 
@@ -101,7 +98,7 @@ class DipWebpackConfigMaker {
         this.rules = getDataFromEnv(commonRules, {
             [ENV_TYPES.development]: devRules,
             [ENV_TYPES.production]: prdRules,
-        })
+        });
     }
 
     _initPlugins() {
@@ -128,7 +125,7 @@ class DipWebpackConfigMaker {
         this.plugins = getDataFromEnv(commonPlugins, {
             [ENV_TYPES.development]: devPlugins,
             [ENV_TYPES.production]: prdPlugins,
-        })
+        });
     }
 
     _initEnties() {
@@ -139,7 +136,7 @@ class DipWebpackConfigMaker {
             ],
             [ENV_TYPES.production]: [],
         });
-        this.defaultVendorEntry = getDataFromEnv([])
+        this.defaultVendorEntry = getDataFromEnv([]);
     }
 
     removeRules(ruleName) {
@@ -184,8 +181,8 @@ class DipWebpackConfigMaker {
                 filename: '[name].[chunkhash].js',
                 // 不能是 [name].[chunkhash].js.map 否则sourcemap会不正确
                 // 因为sourcemap不仅仅是js，还有css的。 [file]就相当于前面的filename
-                sourceMapFilename: "[file].map",
-                chunkFilename: "chunk.[name].[id].[chunkhash].js"
+                sourceMapFilename: '[file].map',
+                chunkFilename: 'chunk.[name].[id].[chunkhash].js',
             },
 
             module: {
@@ -199,7 +196,7 @@ class DipWebpackConfigMaker {
 
         if (dipConfig.sourceMap) {
             this.merge({
-                devtool: isProductionEnv() ? 'source-map' : 'cheap-module-source-map'
+                devtool: isProductionEnv() ? 'source-map' : 'cheap-module-source-map',
             });
         }
 
@@ -247,4 +244,5 @@ export {
     DipWebpackConfigMaker,
     ALL_PLUGIN_NAMES,
     ALL_LOADER_RULE_NAMES,
-}
+};
+
