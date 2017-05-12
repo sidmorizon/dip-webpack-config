@@ -36,11 +36,10 @@ const postCssLoader = () => {
 const sassLoader = () => {
     const dipConfig = getService(SERVICE_NAMES.dipConfig);
     return getDataFromEnv({
-        loader: stringLoaderWithOptions('sass-loader', {
+        loader: 'sass-loader',
+        options: {
             ...dipConfig.loaderOptions.sassLoaderOption,
-        }),
-        // seems like options does not working here
-        options: {},
+        },
     });
 };
 

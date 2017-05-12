@@ -116,6 +116,8 @@ const loaderOptionsPlugin = () => {
         // minimize: true,
         // debug: true,
         options: {
+            // https://github.com/peerigon/extract-loader/issues/16
+            output: {},               // <--- this solves the issue
             // context: __dirname
         },
     });
@@ -148,6 +150,7 @@ const extractTextPlugins = () => {
 };
 
 export {
+    loaderOptionsPlugin,
     circularDependencyPlugin,
     commonsChunkPlugin,
     htmlWebpackPlugin,
@@ -156,6 +159,5 @@ export {
     uglifyJsPlugin,
     friendlyErrorsWebpackPlugin,
     hotModuleReplacementPlugin,
-    loaderOptionsPlugin,
     extractTextPlugins,
 };
