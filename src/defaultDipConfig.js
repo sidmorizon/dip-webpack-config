@@ -7,6 +7,7 @@ import {getDataFromEnv} from './utils';
 export default getDataFromEnv({
     https: false,
     sourceMap: false,
+    hash: true,
     appEntry: [],
     vendorEntry: [],
     commonChunks: [],

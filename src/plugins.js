@@ -33,15 +33,19 @@ const circularDependencyPlugin = () => {
 
 const commonsChunkPlugin = () => {
     const dipConfig = getService(SERVICE_NAMES.dipConfig);
+    let chunkFileName = '[name].js';
+    if (dipConfig.hash) {
+        // 注意: webpack-dev-server 模式下[chunkhash]不可用(vendors返回为undefined),请使用[hash].
+        // webpack命令行直接build是可以用[chunkhash]的
+        chunkFileName = isProductionEnv() ? '[name].[chunkhash].js' : '[name].[hash].js';
+    }
 
     return new webpack.optimize.CommonsChunkPlugin({
         names: [
             'vendors', // 这里对应的就是entry里的 vendors
             'manifest', // 必须将manifest独立出来,否则会位于vendors中,导致vendors的md5永远在变化
         ].concat(dipConfig.commonChunks),
-        // 注意: webpack-dev-server 模式下[chunkhash]不可用(vendors返回为undefined),请使用[hash].
-        // webpack命令行直接build是可以用[chunkhash]的
-        filename: isProductionEnv() ? '[name].[chunkhash].js' : '[name].[hash].js',
+        filename: chunkFileName,
     });
 };
 
@@ -117,25 +121,31 @@ const loaderOptionsPlugin = () => {
     });
 };
 
-const extractTextPlugins = (() => {
-    const scssExtract = new ExtractTextPlugin({
-        filename: 'scss.[contenthash].css',
-    });
-    const cssExtract = new ExtractTextPlugin({
-        filename: 'css.[contenthash].css',
-    });
-    const cssModulesExtract = new ExtractTextPlugin({
-        filename: 'css-modules.[contenthash].css',
-        disable: false,
-        // css modules中的css必须加这个才能extract出来
-        allChunks: true,
-    });
-    return {
-        scssExtract,
-        cssExtract,
-        cssModulesExtract,
-    };
-})();
+let _extractTextPlugins = null;
+const extractTextPlugins = () => {
+    if (!_extractTextPlugins) {
+        const dipConfig = getService(SERVICE_NAMES.dipConfig);
+
+        const scssExtract = new ExtractTextPlugin({
+            filename: dipConfig.hash ? 'scss.[contenthash].css' : 'scss.css',
+        });
+        const cssExtract = new ExtractTextPlugin({
+            filename: dipConfig.hash ? 'css.[contenthash].css' : 'css.css',
+        });
+        const cssModulesExtract = new ExtractTextPlugin({
+            filename: dipConfig.hash ? 'css-modules.[contenthash].css' : 'css-modules.css',
+            disable: false,
+            // css modules中的css必须加这个才能extract出来
+            allChunks: true,
+        });
+        _extractTextPlugins = {
+            scssExtract,
+            cssExtract,
+            cssModulesExtract,
+        };
+    }
+    return _extractTextPlugins;
+};
 
 export {
     circularDependencyPlugin,

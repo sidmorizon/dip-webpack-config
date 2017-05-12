@@ -108,9 +108,9 @@ class DipWebpackConfigMaker {
             [ALL_PLUGIN_NAMES.htmlWebpackPlugin]: plugins.htmlWebpackPlugin(),
             [ALL_PLUGIN_NAMES.inlineChunkWebpackPlugin]: plugins.inlineChunkWebpackPlugin(),
             [ALL_PLUGIN_NAMES.definePlugin]: plugins.definePlugin(),
-            [ALL_PLUGIN_NAMES.cssExtract]: plugins.extractTextPlugins.cssExtract,
-            [ALL_PLUGIN_NAMES.scssExtract]: plugins.extractTextPlugins.scssExtract,
-            [ALL_PLUGIN_NAMES.cssModulesExtract]: plugins.extractTextPlugins.cssModulesExtract,
+            [ALL_PLUGIN_NAMES.cssExtract]: plugins.extractTextPlugins().cssExtract,
+            [ALL_PLUGIN_NAMES.scssExtract]: plugins.extractTextPlugins().scssExtract,
+            [ALL_PLUGIN_NAMES.cssModulesExtract]: plugins.extractTextPlugins().cssModulesExtract,
         };
         const devPlugins = {
             ...commonPlugins,
@@ -178,11 +178,11 @@ class DipWebpackConfigMaker {
             output: {
                 path: null,
                 publicPath: null,
-                filename: '[name].[chunkhash].js',
+                filename: dipConfig.hash ? '[name].[chunkhash].js' : '[name].js',
                 // 不能是 [name].[chunkhash].js.map 否则sourcemap会不正确
                 // 因为sourcemap不仅仅是js，还有css的。 [file]就相当于前面的filename
                 sourceMapFilename: '[file].map',
-                chunkFilename: 'chunk.[name].[id].[chunkhash].js',
+                chunkFilename: dipConfig.hash ? 'chunk.[name].[id].[chunkhash].js' : 'chunk.[name].[id].js',
             },
 
             module: {

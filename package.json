@@ -49,7 +49,10 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-clean": "^0.3.2",
+    "jest": "^20.0.1",
+    "jest-enzyme": "^3.1.0",
     "react": "^15.5.4",
+    "shelljs": "^0.7.7",
     "webpack": "^2.5.1"
   },
   "name": "dip-webpack-config",
@@ -57,9 +60,22 @@
   "version": "2.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "gulp && webpack --config ./test/webpack.config.test.js ",
+    "unit": "jest",
+    "test": "yarn unit",
+    "compile": "gulp && webpack --config ./test/webpack.config.test.js --bail ",
     "check-versions": "npm outdated",
     "lint-fix": "eslint --fix"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "testRegex": "(/__tests__/.*|\\.(spec))\\.(js)$",
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleNameMapper": {},
+    "transform": {},
+    "setupFiles": []
   },
   "repository": {
     "type": "git",

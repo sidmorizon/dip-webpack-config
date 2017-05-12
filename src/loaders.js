@@ -56,13 +56,17 @@ const resolveUrlLoader = () => getDataFromEnv({
     options: {},
 });
 
-const urlLoader = () => getDataFromEnv({
-    loader: 'url-loader',
-    options: {
-        limit: 1000,
-        name: '[path][name].[hash:8].[ext]',
-    },
-});
+const urlLoader = () => {
+    const dipConfig = getService(SERVICE_NAMES.dipConfig);
+
+    return getDataFromEnv({
+        loader: 'url-loader',
+        options: {
+            limit: 1000,
+            name: dipConfig.hash ? '[path][name].[hash:8].[ext]' : '[path][name].[ext]',
+        },
+    });
+};
 
 const babelLoader = () => {
     const dipConfig = getService(SERVICE_NAMES.dipConfig);
@@ -91,12 +95,16 @@ const htmlLoader = () => getDataFromEnv({
     },
 });
 
-const fileLoader = () => getDataFromEnv({
-    loader: 'file-loader',
-    options: {
-        name: '[path][name].[hash:8].[ext]',
-    },
-});
+const fileLoader = () => {
+    const dipConfig = getService(SERVICE_NAMES.dipConfig);
+
+    return getDataFromEnv({
+        loader: 'file-loader',
+        options: {
+            name: dipConfig.hash ? '[path][name].[hash:8].[ext]' : '[path][name].[ext]',
+        },
+    });
+};
 
 const extractLoader = () => getDataFromEnv({
     loader: 'extract-loader',

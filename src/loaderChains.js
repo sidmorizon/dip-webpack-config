@@ -9,18 +9,26 @@ import {ENV_TYPES} from './consts';
 import {getService, SERVICE_NAMES} from './bottle';
 
 
-const moduleSassLoaderChain = () => getDataFromEnv([
-    loaders.cssLoaderCreator({
-        autoprefixer: false,
-        restructuring: false,
-        importLoaders: 1,
-        modules: true,
-        localIdentName: isProductionEnv() ? '[hash:base64]' : '[path]--[name]-[ext]__[local]-[hash:base64:5]',
-    }),
-    loaders.postCssLoaderCreator(),
-    loaders.resolveUrlLoaderCreator(),
-    loaders.sassLoaderCreator(),
-]);
+const moduleSassLoaderChain = () => {
+    const dipConfig = getService(SERVICE_NAMES.dipConfig);
+    let localIdentName = '[path]--[name]-[ext]__[local]';
+    if (dipConfig.hash) {
+        localIdentName = isProductionEnv() ? '[hash:base64]' : '[path]--[name]-[ext]__[local]-[hash:base64:5]';
+    }
+
+    return getDataFromEnv([
+        loaders.cssLoaderCreator({
+            autoprefixer: false,
+            restructuring: false,
+            importLoaders: 1,
+            modules: true,
+            localIdentName,
+        }),
+        loaders.postCssLoaderCreator(),
+        loaders.resolveUrlLoaderCreator(),
+        loaders.sassLoaderCreator(),
+    ]);
+};
 
 const cssLoaderChain = () => {
     const dipConfig = getService(SERVICE_NAMES.dipConfig);

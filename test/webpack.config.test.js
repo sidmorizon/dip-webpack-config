@@ -8,12 +8,13 @@ const Path = require('path');
 const initDipConfig = {
     https: false,
     sourceMap: true,
-    appEntry: ['./test/entry.js'],
-    vendorEntry: [],
+    hash: false,
+    appEntry: ['./test/app.js'],
+    vendorEntry: ['./test/vendor.js'],
     commonChunks: [],
     htmlTpl: './test/index.ejs',
-    publicPath: '/qn-dist/',
-    distPath: Path.join(process.cwd(), 'test/dist-prepare'),
+    publicPath: './',
+    distPath: './test/dist-prepare',
 
     loaderOptions: {
         sassLoaderOption: {
@@ -33,7 +34,7 @@ const maker = new dip.DipWebpackConfigMaker(initDipConfig)
 
 const cfg = maker.output();
 
-console.log(JSON.stringify(cfg, null, 4));
+// console.log(JSON.stringify(cfg, null, 4));
 
 console.log(`process.env.NODE_ENV = ${process.env.NODE_ENV}`);
 

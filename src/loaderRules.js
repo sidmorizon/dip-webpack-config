@@ -48,7 +48,7 @@ const sassLoaderRule = () => {
         test(filePath) {
             return (/\.scss$/).test(filePath) && !(/\.module\.scss$/).test(filePath);
         },
-        use: plugins.extractTextPlugins.scssExtract.extract({
+        use: plugins.extractTextPlugins().scssExtract.extract({
             fallback: loaderChains.styleLoaderChain(),
             use: loaderChains.sassLoaderChain(),
         }),
@@ -58,7 +58,7 @@ const sassLoaderRule = () => {
 const moduleSassLoaderRule = () => {
     return {
         test: /\.(scss-m|module\.scss)$/,
-        use: plugins.extractTextPlugins.cssModulesExtract.extract({
+        use: plugins.extractTextPlugins().cssModulesExtract.extract({
             fallback: loaderChains.styleLoaderChain(),
             use: loaderChains.moduleSassLoaderChain(),
         }),
@@ -68,7 +68,7 @@ const moduleSassLoaderRule = () => {
 const cssLoaderRule = () => {
     return {
         test: /\.css$/,
-        use: plugins.extractTextPlugins.cssExtract.extract({
+        use: plugins.extractTextPlugins().cssExtract.extract({
             fallback: loaderChains.styleLoaderChain(),
             use: loaderChains.cssLoaderChain(),
         }),
