@@ -2,5 +2,9 @@
 # 文件ignore请参考： http://eslint.org/docs/user-guide/command-line-interface#ignoring-files-from-linting
 
 **/node_modules/**
-_babelEs6TempHelper_.js
-test/**
+
+# 先忽略所有js文件
+*.js
+*.md
+# 然后，只对src目录下的js文件进行代码检查
+!src/**/*.js
