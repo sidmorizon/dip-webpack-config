@@ -13,16 +13,6 @@ import {getDataFromEnv, isProductionEnv} from './utils';
 import {ENV_TYPES} from './consts';
 import {getDefaultWebpackConfig} from './getDefaultWebpackConfig';
 
-
-function getDevServer() {
-    const dipConfig = getService(SERVICE_NAMES.dipConfig);
-
-    const HOST = '0.0.0.0';
-    const PORT = process.env.PORT || 8080;
-    const DEV_SERVER = `${dipConfig.https ? 'https' : 'http'}://${HOST}:${PORT}`;
-    return DEV_SERVER;
-}
-
 const ALL_PLUGIN_NAMES = {
     commonsChunkPlugin: 'commonsChunkPlugin',
     htmlWebpackPlugin: 'htmlWebpackPlugin',
@@ -61,7 +51,7 @@ class DipWebpackConfigMaker {
         this._setDipConfig(myDipConfig);
         this._initLoaderRules();
         this._initPlugins();
-        this._initEnties();
+        this._initEntries();
     }
 
     _initEnv() {
@@ -133,15 +123,9 @@ class DipWebpackConfigMaker {
         });
     }
 
-    _initEnties() {
-        this.defaultAppEntry = getDataFromEnv([], {
-            [ENV_TYPES.development]: [
-                `webpack-dev-server/client?${getDevServer()}`, // Automatic Refresh ，支持在浏览器console显示Refresh compile信息
-                'react-dev-utils/webpackHotDevClient', // 使用增强的hotDevClient（带报错overlay）
-            ],
-            [ENV_TYPES.production]: [],
-        });
-        this.defaultVendorEntry = getDataFromEnv([]);
+    _initEntries() {
+        this.defaultAppEntry = [];
+        this.defaultVendorEntry = [];
     }
 
     removeRules(ruleName) {

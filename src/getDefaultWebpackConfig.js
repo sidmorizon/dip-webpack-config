@@ -23,7 +23,7 @@ function getDefaultWebpackConfig() {
         },
         devServer: {
             // 传递给webpack-dev-server的配置
-            // overlay: true // 增加报错浮层
+            // overlay: true // 增加报错浮层 webpack2.0以上支持
         },
         output: {
             path: null,
