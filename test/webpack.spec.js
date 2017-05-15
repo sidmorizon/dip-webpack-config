@@ -181,6 +181,12 @@ describe('Compile webpack as NODE_ENV=production', () => {
         expect(window.esModule1Age).toBe("esModule1-age");
     });
 
+    it('html payload data', () => {
+        expect(window.HTML_WEBPACK_PLUGIN_PAYLOAD).toEqual({
+            grade: 19,
+            level: 33,
+        });
+    });
 
 });
 /*

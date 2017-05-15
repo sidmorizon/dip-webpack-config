@@ -23,16 +23,15 @@
     <!--设置视图宽度和缩放-->
     <meta name="viewport" content="width=375,maximum-scale=1,user-scalable=no">
     <!--以下是iphone的启动画面-->
-    <link rel="apple-touch-startup-image" href="https://o4j4l4n7h.qnssl.com/dbf52a6a8ddc228832086db3b939ff39/splash.png">
+    <link rel="apple-touch-startup-image"
+          href="https://o4j4l4n7h.qnssl.com/dbf52a6a8ddc228832086db3b939ff39/splash.png">
     <!--浏览器选项卡icon和手机桌面icon-->
     <link rel="icon" type="image/png" href="https://o4j4l4n7h.qnssl.com/c32bfa18c564181d49a632fedc172527/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" href="https://o4j4l4n7h.qnssl.com/a426fd30f78ab81e78229b0808dc8a4f/icon_jinku_2017.png"/>
+    <link rel="apple-touch-icon-precomposed"
+          href="https://o4j4l4n7h.qnssl.com/a426fd30f78ab81e78229b0808dc8a4f/icon_jinku_2017.png"/>
     <!--<link rel="stylesheet" href="/animate.css">-->
     <script>
-        window.XM_GIT_COMMIT_HASH = "<%= htmlWebpackPlugin.options.XM_GIT_COMMIT_HASH %>";
-        window.XM_PUBLISH_DATE = "<%= htmlWebpackPlugin.options.XM_PUBLISH_DATE %>";
-        window.XM_PUBLISH_USER_NAME = "<%= htmlWebpackPlugin.options.XM_PUBLISH_USER_NAME %>";
-        window.XM_TEAM_CITY_BUILD = "<%= htmlWebpackPlugin.options.XM_TEAM_CITY_BUILD %>";
+        window.HTML_WEBPACK_PLUGIN_PAYLOAD = <%= JSON.stringify(htmlWebpackPlugin.options.htmlPayload, null, 4) %>;
     </script>
 
 

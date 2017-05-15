@@ -65,6 +65,8 @@ const htmlWebpackPlugin = () => {
             removeComments: true,
             collapseWhitespace: true,
         } : false,
+
+        htmlPayload: dipConfig.htmlPayload,
     });
 };
 

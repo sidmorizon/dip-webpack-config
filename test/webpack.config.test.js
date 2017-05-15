@@ -13,6 +13,10 @@ const initDipConfig = {
     vendorEntry: ['./test/vendor.js'],
     commonChunks: [],
     htmlTpl: './test/index.ejs',
+    htmlPayload: {
+        grade: 19,
+        level: 33,
+    },
     publicPath: './',
     distPath: './test/dist-prepare',
 
@@ -27,8 +31,8 @@ const initDipConfig = {
 const mergeWebpackConfig = {};
 
 const maker = new dip.DipWebpackConfigMaker(initDipConfig)
-    // .removeRules(dip.ALL_LOADER_RULE_NAMES.jsLoaderRule)
-    // .removePlugins(dip.ALL_PLUGIN_NAMES.uglifyJsPlugin)
+// .removeRules(dip.ALL_LOADER_RULE_NAMES.jsLoaderRule)
+// .removePlugins(dip.ALL_PLUGIN_NAMES.uglifyJsPlugin)
     .make()
     .merge(mergeWebpackConfig);
 

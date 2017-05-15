@@ -12,6 +12,7 @@ export default getDataFromEnv({
     vendorEntry: [],
     commonChunks: [],
     htmlTpl: 'src/index.ejs',
+    htmlPayload: {},
     publicPath: '/qn-dist/',
     distPath: Path.join(process.cwd(), 'dist-prepare'),
 
