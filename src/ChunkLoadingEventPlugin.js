@@ -10,20 +10,20 @@ CustomJsonpMainTemplatePlugin.prototype.constructor = CustomJsonpMainTemplatePlu
 CustomJsonpMainTemplatePlugin.prototype.apply = function (mainTemplate) {
 
     // console.log('----------------------------------------------------',mainTemplate._plugins['require-ensure'].toString())
-    var newRequireEnsureTpl = function (_, chunk, hash) {
+    var newRequireEnsureTplForWebpack1 = function (_, chunk, hash) {
         var filename = this.outputOptions.filename || "bundle.js";
         var chunkFilename = this.outputOptions.chunkFilename || "[id]." + filename;
         return this.asString([
-            "var triggerCustomEvent = function (eventName,eventParams) {" ,
-            "    var event;" ,
-            "    if (window.CustomEvent) " ,
-            "    { " ,
-            "        event = new CustomEvent(eventName, {detail: eventParams});  " ,
-            "    } else {  " ,
-            "        event = document.createEvent('CustomEvent');  " ,
-            "        event.initCustomEvent(eventName, true, true, eventParams); " ,
-            "    }" ,
-            "    document.dispatchEvent(event); " ,
+            "var triggerCustomEvent = function (eventName,eventParams) {",
+            "    var event;",
+            "    if (window.CustomEvent) ",
+            "    { ",
+            "        event = new CustomEvent(eventName, {detail: eventParams});  ",
+            "    } else {  ",
+            "        event = document.createEvent('CustomEvent');  ",
+            "        event.initCustomEvent(eventName, true, true, eventParams); ",
+            "    }",
+            "    document.dispatchEvent(event); ",
             "};",
 
             "// \"0\" is the signal for \"already loaded\"",
@@ -48,19 +48,62 @@ CustomJsonpMainTemplatePlugin.prototype.apply = function (mainTemplate) {
         ]);
     };
 
-    mainTemplate.plugin("require-ensure", newRequireEnsureTpl);
+    var newRequireEnsureTplForWebpack2 = function (_, chunk, hash) {
+        return this.asString([
+
+            "var triggerCustomEvent = function (eventName,eventParams) {",
+            "    var event;",
+            "    if (window.CustomEvent) ",
+            "    { ",
+            "        event = new CustomEvent(eventName, {detail: eventParams});  ",
+            "    } else {  ",
+            "        event = document.createEvent('CustomEvent');  ",
+            "        event.initCustomEvent(eventName, true, true, eventParams); ",
+            "    }",
+            "    document.dispatchEvent(event); ",
+            "};",
+
+
+            "if(installedChunks[chunkId] === 0) {",
+            this.indent([
+                "return Promise.resolve();"
+            ]),
+            "}",
+            "",
+            "// a Promise means \"currently loading\".",
+            "if(installedChunks[chunkId]) {",
+            this.indent([
+                "return installedChunks[chunkId][2];"
+            ]),
+            "}",
+            "",
+            "// setup Promise in chunk cache",
+            "var promise = new Promise(function(resolve, reject) {",
+            this.indent([
+                "installedChunks[chunkId] = [resolve, reject];"
+            ]),
+            "});",
+            "installedChunks[chunkId][2] = promise;",
+            "",
+            "// start chunk loading",
+            "var head = document.getElementsByTagName('head')[0];",
+            this.applyPluginsWaterfall("jsonp-script", "", chunk, hash),
+            "script.onload=function(){ triggerCustomEvent('webpackChunkLoaded'); };",
+            "head.appendChild(script);",
+            "triggerCustomEvent('webpackChunkLoading');",
+            "",
+            "return promise;"
+        ]);
+    };
+
+    mainTemplate.plugin("require-ensure", newRequireEnsureTplForWebpack2);
     // mainTemplate._plugins['require-ensure'] = [newRequireEnsureTpl];
     // console.log('=====================================', mainTemplate._plugins['require-ensure'].toString())
 
 };
 
 
-
-
-
-
-
-// WebpackOptionsApply -> JsonpTemplatePlugin -> JsonpMainTemplatePlugin -> "require-ensure"
+// WebpackOptionsApply -> JsonpTemplatePlugin -> JsonpMainTemplatePlugin -> mainTemplate.plugin("require-ensure")
 function ChunkLoadingEventPlugin() {
 }
 ChunkLoadingEventPlugin.prototype.constructor = ChunkLoadingEventPlugin;

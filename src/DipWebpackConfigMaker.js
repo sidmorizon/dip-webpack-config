@@ -27,6 +27,7 @@ const ALL_PLUGIN_NAMES = {
     hotModuleReplacementPlugin: 'hotModuleReplacementPlugin',
     uglifyJsPlugin: 'uglifyJsPlugin',
     babiliWebpackPlugin: 'babiliWebpackPlugin',
+    chunkLoadingEventPlugin: 'chunkLoadingEventPlugin',
 };
 const ALL_LOADER_RULE_NAMES = {
     htmlLoaderRule: 'htmlLoaderRule',
@@ -96,6 +97,7 @@ class DipWebpackConfigMaker {
     _initPlugins() {
         const commonPlugins = {
             [ALL_PLUGIN_NAMES.loaderOptionsPlugin]: plugins.loaderOptionsPlugin(),
+            [ALL_PLUGIN_NAMES.chunkLoadingEventPlugin]: plugins.chunkLoadingEventPlugin(),
             [ALL_PLUGIN_NAMES.commonsChunkPlugin]: plugins.commonsChunkPlugin(),
             [ALL_PLUGIN_NAMES.htmlWebpackPlugin]: plugins.htmlWebpackPlugin(),
             [ALL_PLUGIN_NAMES.inlineChunkWebpackPlugin]: plugins.inlineChunkWebpackPlugin(),

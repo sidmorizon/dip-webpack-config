@@ -10,6 +10,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import InlineChunkWebpackPlugin from 'html-webpack-inline-chunk-plugin';
 import FriendlyErrorsWebpackPlugin from 'friendly-errors-webpack-plugin';
 import BabiliWebpackPlugin from 'babili-webpack-plugin';
+import ChunkLoadingEventPlugin from './ChunkLoadingEventPlugin';
 
 import {isProductionEnv} from './utils';
 import {getService, SERVICE_NAMES} from './bottle';
@@ -20,8 +21,7 @@ import {ENV_TYPES} from './consts';
 // import LodashModuleReplacementPlugin from 'lodash-webpack-plugin';
 //
 
-// TODO 这个
-// const chunkLoadingEventPlugin = ()=>new ChunkLoadingEventPlugin(),;
+const chunkLoadingEventPlugin = () => new ChunkLoadingEventPlugin();
 
 const circularDependencyPlugin = () => {
     return new CircularDependencyPlugin({
@@ -162,6 +162,7 @@ export {
     loaderOptionsPlugin,
     circularDependencyPlugin,
     commonsChunkPlugin,
+    chunkLoadingEventPlugin,
     htmlWebpackPlugin,
     inlineChunkWebpackPlugin,
     definePlugin,
