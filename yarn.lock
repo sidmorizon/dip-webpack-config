@@ -290,12 +290,12 @@ autoprefixer@^6.3.1:
     postcss "^5.2.16"
     postcss-value-parser "^3.2.3"
 
-autoprefixer@^7.0.1:
-  version "7.0.1"
-  resolved "http://registry.npm.taobao.org/autoprefixer/download/autoprefixer-7.0.1.tgz#472d7620a1b286e55ad1d8345a09d76aaed99d92"
+autoprefixer@^7.1.0:
+  version "7.1.0"
+  resolved "http://registry.npm.taobao.org/autoprefixer/download/autoprefixer-7.1.0.tgz#ae4913adc221fa6ca5ad3a6f8039f6a5c06b3877"
   dependencies:
     browserslist "^2.1.2"
-    caniuse-lite "^1.0.30000665"
+    caniuse-lite "^1.0.30000669"
     normalize-range "^0.1.2"
     num2fraction "^1.2.2"
     postcss "^6.0.1"
@@ -1488,6 +1488,10 @@ caniuse-lite@^1.0.30000665:
   version "1.0.30000666"
   resolved "http://registry.npm.taobao.org/caniuse-lite/download/caniuse-lite-1.0.30000666.tgz#831b63247e24fa408e20c6c546c4173d27c5a1a5"
 
+caniuse-lite@^1.0.30000669:
+  version "1.0.30000670"
+  resolved "http://registry.npm.taobao.org/caniuse-lite/download/caniuse-lite-1.0.30000670.tgz#c94f7dbf0b68eaadc46d3d203f46e82e7801135e"
+
 caseless@~0.12.0:
   version "0.12.0"
   resolved "http://registry.npm.taobao.org/caseless/download/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
@@ -2262,9 +2266,9 @@ entities@~1.1.1:
   version "1.1.1"
   resolved "http://registry.npm.taobao.org/entities/download/entities-1.1.1.tgz#6e5c2d0a5621b5dadaecef80b90edfb5cd7772f0"
 
-enzyme-matchers@^3.1.0:
-  version "3.1.0"
-  resolved "http://registry.npm.taobao.org/enzyme-matchers/download/enzyme-matchers-3.1.0.tgz#097fe2b734a7493ed0f8aea727d3976c2d6eac29"
+enzyme-matchers@^3.1.1:
+  version "3.1.1"
+  resolved "http://registry.npm.taobao.org/enzyme-matchers/download/enzyme-matchers-3.1.1.tgz#445411f8c50c5642a670aad5734dc8d4442d0757"
   dependencies:
     deep-equal-ident "^1.1.1"
 
@@ -2408,15 +2412,15 @@ escope@^3.6.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint-config-airbnb-base@^11.1.0:
-  version "11.1.3"
-  resolved "http://registry.npm.taobao.org/eslint-config-airbnb-base/download/eslint-config-airbnb-base-11.1.3.tgz#0e8db71514fa36b977fbcf977c01edcf863e0cf0"
+eslint-config-airbnb-base@^11.2.0:
+  version "11.2.0"
+  resolved "http://registry.npm.taobao.org/eslint-config-airbnb-base/download/eslint-config-airbnb-base-11.2.0.tgz#19a9dc4481a26f70904545ec040116876018f853"
 
-eslint-config-airbnb@^14.1.0:
-  version "14.1.0"
-  resolved "http://registry.npm.taobao.org/eslint-config-airbnb/download/eslint-config-airbnb-14.1.0.tgz#355d290040bbf8e00bf8b4b19f4b70cbe7c2317f"
+eslint-config-airbnb@^15.0.0:
+  version "15.0.0"
+  resolved "http://registry.npm.taobao.org/eslint-config-airbnb/download/eslint-config-airbnb-15.0.0.tgz#3f610c8fedc6baec84d87af5c8124301389d45d8"
   dependencies:
-    eslint-config-airbnb-base "^11.1.0"
+    eslint-config-airbnb-base "^11.2.0"
 
 eslint-friendly-formatter@^3.0.0:
   version "3.0.0"
@@ -2480,9 +2484,9 @@ eslint-plugin-jsx-a11y@^4.0.0:
     jsx-ast-utils "^1.0.0"
     object-assign "^4.0.1"
 
-eslint-plugin-react@^7.0.0:
-  version "7.0.0"
-  resolved "http://registry.npm.taobao.org/eslint-plugin-react/download/eslint-plugin-react-7.0.0.tgz#084cfe772d229ec5ae7e525dfc6d299cc21ddd77"
+eslint-plugin-react@^7.0.1:
+  version "7.0.1"
+  resolved "http://registry.npm.taobao.org/eslint-plugin-react/download/eslint-plugin-react-7.0.1.tgz#e78107e1e559c6e2b17786bb67c2e2a010ad0d2f"
   dependencies:
     doctrine "^2.0.0"
     has "^1.0.1"
@@ -3946,12 +3950,12 @@ jest-environment-node@^20.0.1:
     jest-mock "^20.0.1"
     jest-util "^20.0.1"
 
-jest-enzyme@^3.1.0:
-  version "3.1.0"
-  resolved "http://registry.npm.taobao.org/jest-enzyme/download/jest-enzyme-3.1.0.tgz#378e98ea3bd7d03c769f1830e1d7564a7762169d"
+jest-enzyme@^3.1.1:
+  version "3.1.1"
+  resolved "http://registry.npm.taobao.org/jest-enzyme/download/jest-enzyme-3.1.1.tgz#3c27708230bb606ddea16a77011c0cdb66677ad4"
   dependencies:
     "@types/react" "^15.0.22"
-    enzyme-matchers "^3.1.0"
+    enzyme-matchers "^3.1.1"
     enzyme-to-json "^1.5.0"
 
 jest-haste-map@^20.0.1:

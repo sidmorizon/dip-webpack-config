@@ -111,8 +111,9 @@ const extractLoader = () => getDataFromEnv({
     options: {},
 });
 
-// TODO Can't resolve 'react/lib/ReactMount'
+// Can't resolve 'react/lib/ReactMount'
 // in '/Users/zuozhuo/workspace/zuozhuo/dip-webpack-config/test'
+// react-hot-loader@next solve
 const reactHotLoader = () => getDataFromEnv({
     loader: 'react-hot-loader',
     options: {},

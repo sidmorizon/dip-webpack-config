@@ -18,8 +18,7 @@ export default getDataFromEnv({
 
     loaderOptions: {
         sassLoaderOption: {
-            // TODO 这里有依赖，后面考虑拆分
-            includePaths: [Path.join(process.cwd(), 'src/sass')],
+            // includePaths: [Path.join(process.cwd(), 'src/sass')],
         },
     },
 });

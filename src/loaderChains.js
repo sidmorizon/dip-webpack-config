@@ -81,7 +81,7 @@ const jsLoaderChain = () => getDataFromEnv([
     loaders.babelLoaderCreator(),
 ], {
     [ENV_TYPES.development]: [
-        // TODO 这个已经挪到babelrc中了
+        // react-hot-loader这个已经挪到babelrc中了
         // loaders.reactHotLoaderCreator(),
         loaders.babelLoaderCreator(),
     ],

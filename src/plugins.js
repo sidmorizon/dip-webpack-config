@@ -126,8 +126,10 @@ const loaderOptionsPlugin = () => {
         debug: !isProductionEnv(),
         options: {
             // https://github.com/peerigon/extract-loader/issues/16
+            // extract-loader need this
             output: {},               // <--- this solves the issue
-            // context: __dirname
+            // file-loader need this, or url will be local system
+            context: __dirname,
         },
     });
 };
