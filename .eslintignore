@@ -8,3 +8,5 @@
 *.md
 # 然后，只对src目录下的js文件进行代码检查
 !src/**/*.js
+
+src/ChunkLoadingEventPlugin.js

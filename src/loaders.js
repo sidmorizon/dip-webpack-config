@@ -15,21 +15,17 @@ import {getService, SERVICE_NAMES} from './bottle';
  */
 
 function loaderCreator(originLoader) {
-    return options => deepExtend({}, originLoader(), {options});
-}
-function stringLoaderWithOptions(loaderName, options) {
-    return `${loaderName}?${JSON.stringify(options)}`;
+    return (options = {}) => deepExtend({}, originLoader(), {options});
 }
 
 const postCssLoader = () => {
     const dipConfig = getService(SERVICE_NAMES.dipConfig);
 
     return getDataFromEnv({
-        loader: stringLoaderWithOptions('postcss-loader', {
+        loader: 'postcss-loader',
+        options: {
             sourceMap: dipConfig.sourceMap,
-        }),
-        // seems like options does not working here
-        options: {},
+        },
     });
 };
 
@@ -79,12 +75,11 @@ const babelLoader = () => {
     // console.log(`\nApply babel config: ${resolveRc(process.cwd()+'/test')}`);
 
     return getDataFromEnv({
-        loader: stringLoaderWithOptions('babel-loader', {
+        loader: 'babel-loader',
+        options: {
             sourceMap: dipConfig.sourceMap,
             cacheDirectory: true,
-        }),
-        // seems like options does not working here
-        options: {},
+        },
     });
 };
 

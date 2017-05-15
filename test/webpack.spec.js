@@ -138,6 +138,13 @@ describe('Compile webpack as NODE_ENV=production', () => {
         expect(fileContainsText('./dist-prepare/app.js', 'prototype.forceUpdate')).toBe(false);
     });
 
+    it('sass extract correctly', () => {
+        expect(fileContainsText('./dist-prepare/scss.css', '#117366')).toBe(true);
+    });
+
+    it('postcss:autoprefixer work pefectly', () => {
+        expect(fileContainsText('./dist-prepare/scss.css', '-webkit-box-flex')).toBe(true);
+    });
 
 });
 /*

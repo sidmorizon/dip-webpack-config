@@ -8,7 +8,7 @@ import {DipWebpackConfigMaker, ALL_LOADER_RULE_NAMES, ALL_PLUGIN_NAMES} from './
 
 /*
  - XM_*** 全局常量注入
- -  vendor entry & polyfill
+ - vendor entry & polyfill
  - Tree Shaking
  - sassLoaderOption 也改成配置文件形式载入
  - 重新构建yarn.lock

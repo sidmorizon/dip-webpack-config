@@ -110,11 +110,13 @@ const hotModuleReplacementPlugin = () => {
 };
 
 const loaderOptionsPlugin = () => {
+    // const dipConfig = getService(SERVICE_NAMES.dipConfig);
+
     // 这里用于兼容一些loader插件必须从 webpack.config.js 的根路径读取配置的情况
     // 例如 postcss，读取debug属性等
     return new webpack.LoaderOptionsPlugin({
-        // minimize: true,
-        // debug: true,
+        minimize: isProductionEnv(),
+        debug: !isProductionEnv(),
         options: {
             // https://github.com/peerigon/extract-loader/issues/16
             output: {},               // <--- this solves the issue
