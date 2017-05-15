@@ -11,7 +11,7 @@ import * as loaderRules from './loaderRules';
 import * as plugins from './plugins';
 import {getDataFromEnv, isProductionEnv} from './utils';
 import {ENV_TYPES} from './consts';
-import {getDefaultWebpackConfig} from "./getDefaultWebpackConfig";
+import {getDefaultWebpackConfig} from './getDefaultWebpackConfig';
 
 
 function getDevServer() {
@@ -36,6 +36,7 @@ const ALL_PLUGIN_NAMES = {
     friendlyErrorsWebpackPlugin: 'friendlyErrorsWebpackPlugin',
     hotModuleReplacementPlugin: 'hotModuleReplacementPlugin',
     uglifyJsPlugin: 'uglifyJsPlugin',
+    babiliWebpackPlugin: 'babiliWebpackPlugin',
 };
 const ALL_LOADER_RULE_NAMES = {
     htmlLoaderRule: 'htmlLoaderRule',
@@ -121,6 +122,9 @@ class DipWebpackConfigMaker {
         };
         const prdPlugins = {
             ...commonPlugins,
+            // because uglifyJS DOES NOT strip class codes in tree-shaking
+            // change to babiliWebpackPlugin to strip unused var\function\class in tree-shaking
+            // [ALL_PLUGIN_NAMES.babiliWebpackPlugin]: plugins.babiliWebpackPlugin(),
             [ALL_PLUGIN_NAMES.uglifyJsPlugin]: plugins.uglifyJsPlugin(),
         };
         this.plugins = getDataFromEnv(commonPlugins, {

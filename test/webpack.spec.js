@@ -142,9 +142,45 @@ describe('Compile webpack as NODE_ENV=production', () => {
         expect(fileContainsText('./dist-prepare/scss.css', '#117366')).toBe(true);
     });
 
-    it('postcss:autoprefixer work pefectly', () => {
+    it('postcss:autoprefixer works', () => {
         expect(fileContainsText('./dist-prepare/scss.css', '-webkit-box-flex')).toBe(true);
     });
+
+    it('tree shaking', () => {
+        // tree shaking will always pack class defines
+        expect(fileContainsText('./dist-prepare/app.js', 'ModuleAClass')).toBe(true);
+        expect(fileContainsText('./dist-prepare/app.js', 'ModuleBClass')).toBe(true);
+
+        // pack modules that we have imported
+        expect(window.moduleAConstName).toBe('moduleAConstName');
+        expect(window.getModuleBName()).toBe('getModuleBName');
+
+        // DO NOT pack modules that we DONT import
+        expect(fileContainsText('./dist-prepare/app.js', 'getModuleAName')).toBe(false);
+        expect(fileContainsText('./dist-prepare/app.js', 'moduleBConstName')).toBe(false);
+    });
+
+    it('css module', () => {
+        expect(fs.existsSync(getFile('./dist-prepare/css-modules.css'))).toBe(true);
+        expect(fileContainsText('./dist-prepare/css-modules.css', '#4f7a99')).toBe(true);
+        expect(fileContainsText('./dist-prepare/css-modules.css', '16.48862px')).toBe(true);
+        expect(window.cssModuleClassNames['i-am-module-css']).toBeTruthy();
+    });
+
+    it('es module & commonjs module', () => {
+        expect(window.commonJsRequireEsModule1).toEqual({
+            "default": "esModule1-default",
+            "esModule1Age": "esModule1-age",
+            "esModule1Name": "esModule1-name"
+        });
+        expect(window.commonJS1Name).toBe("commonJS1-Name");
+        expect(window.commonJS1Age).toBe("commonJS1-Age");
+        expect(window.commonJS2).toBe('commonJS2');
+        expect(window.esModule1Default).toBe("esModule1-default");
+        expect(window.esModule1Name).toBe("esModule1-name");
+        expect(window.esModule1Age).toBe("esModule1-age");
+    });
+
 
 });
 /*

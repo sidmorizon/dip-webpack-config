@@ -9,6 +9,7 @@ import CircularDependencyPlugin from 'circular-dependency-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import InlineChunkWebpackPlugin from 'html-webpack-inline-chunk-plugin';
 import FriendlyErrorsWebpackPlugin from 'friendly-errors-webpack-plugin';
+import BabiliWebpackPlugin from 'babili-webpack-plugin';
 
 import {isProductionEnv} from './utils';
 import {getService, SERVICE_NAMES} from './bottle';
@@ -100,6 +101,10 @@ const uglifyJsPlugin = () => {
     });
 };
 
+const babiliWebpackPlugin = () => {
+    return new BabiliWebpackPlugin();
+};
+
 const friendlyErrorsWebpackPlugin = () => {
     return new FriendlyErrorsWebpackPlugin();
 };
@@ -158,7 +163,7 @@ export {
     htmlWebpackPlugin,
     inlineChunkWebpackPlugin,
     definePlugin,
-    uglifyJsPlugin,
+    uglifyJsPlugin, babiliWebpackPlugin,
     friendlyErrorsWebpackPlugin,
     hotModuleReplacementPlugin,
     extractTextPlugins,

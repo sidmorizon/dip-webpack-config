@@ -1,5 +1,9 @@
+@import "hi-mixins";
+
+
 $bodyColor: #117366;
 body {
   color: $bodyColor;
   flex: 1;
+  @include hello-font-size;
 }

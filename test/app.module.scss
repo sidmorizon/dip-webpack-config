@@ -1,0 +1,8 @@
+@import "hi-mixins";
+
+$moduleColor: #4F7A99;
+.i-am-module-css {
+  color: $moduleColor;
+  flex: 1;
+  @include hello-font-size;
+}

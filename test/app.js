@@ -4,6 +4,8 @@
 // app.scss import
 import './app.scss';
 import React from 'react';
+import {moduleAConstName, getModuleBName} from './components'
+import cssModuleClassNames from './app.module.scss';
 
 
 window.LOGIN_USER = {firstName: 'foo', lastName: 'bar', age: 21, role: 'client'};
@@ -49,3 +51,6 @@ class ReactHello extends React.Component {
     }
 }
 window.ReactHello = ReactHello;
+window.moduleAConstName = moduleAConstName;
+window.getModuleBName = getModuleBName;
+window.cssModuleClassNames  = cssModuleClassNames;
