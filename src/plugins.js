@@ -129,7 +129,7 @@ const loaderOptionsPlugin = () => {
             // extract-loader need this
             output: {},               // <--- this solves the issue
             // file-loader need this, or url will be local system
-            context: __dirname,
+            context: process.cwd(),
         },
     });
 };
