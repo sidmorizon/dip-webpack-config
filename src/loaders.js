@@ -34,28 +34,41 @@ const sassLoader = () => {
     return getDataFromEnv({
         loader: 'sass-loader',
         options: {
+            sourceMap: dipConfig.sourceMap,
             ...dipConfig.loaderOptions.sassLoaderOption,
         },
     });
 };
 
-const cssLoader = () => getDataFromEnv({
-    loader: 'css-loader',
-    options: {
-        autoprefixer: false,
-        restructuring: false,
-    },
-});
+const cssLoader = () => {
+    const dipConfig = getService(SERVICE_NAMES.dipConfig);
+
+    return getDataFromEnv({
+        loader: 'css-loader',
+        options: {
+            autoprefixer: false,
+            restructuring: false,
+            sourceMap: dipConfig.sourceMap,
+            ...dipConfig.loaderOptions.cssLoaderOption,
+        },
+    });
+};
 
 const styleLoader = () => getDataFromEnv({
     loader: 'style-loader',
     options: {},
 });
 
-const resolveUrlLoader = () => getDataFromEnv({
-    loader: 'resolve-url-loader',
-    options: {},
-});
+const resolveUrlLoader = () => {
+    const dipConfig = getService(SERVICE_NAMES.dipConfig);
+
+    return getDataFromEnv({
+        loader: 'resolve-url-loader',
+        options: {
+            sourceMap: dipConfig.sourceMap,
+        },
+    });
+};
 
 const urlLoader = () => {
     const dipConfig = getService(SERVICE_NAMES.dipConfig);

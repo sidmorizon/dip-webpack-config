@@ -20,6 +20,8 @@ export default getDataFromEnv({
         sassLoaderOption: {
             // includePaths: [Path.join(process.cwd(), 'src/sass')],
         },
+        cssLoaderOption: {
+        },
     },
 });
 

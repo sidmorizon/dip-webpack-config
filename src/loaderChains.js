@@ -25,23 +25,16 @@ const moduleSassLoaderChain = () => {
             localIdentName,
         }),
         loaders.postCssLoaderCreator(),
-        loaders.resolveUrlLoaderCreator({
-            sourceMap: dipConfig.sourceMap,
-        }),
-        loaders.sassLoaderCreator({
-            sourceMap: dipConfig.sourceMap,
-        }),
+        loaders.resolveUrlLoaderCreator(),
+        loaders.sassLoaderCreator(),
     ]);
 };
 
 const cssLoaderChain = () => {
-    const dipConfig = getService(SERVICE_NAMES.dipConfig);
-
     return getDataFromEnv([
         loaders.cssLoaderCreator({
             autoprefixer: false,
             restructuring: false,
-            sourceMap: dipConfig.sourceMap,
         }),
         loaders.postCssLoaderCreator(),
     ]);
@@ -54,16 +47,10 @@ const styleLoaderChain = () => {
 };
 
 const sassLoaderChain = () => {
-    const dipConfig = getService(SERVICE_NAMES.dipConfig);
-
     return getDataFromEnv([
         ...cssLoaderChain(),
-        loaders.resolveUrlLoaderCreator({
-            sourceMap: dipConfig.sourceMap,
-        }),
-        loaders.sassLoaderCreator({
-            sourceMap: dipConfig.sourceMap,
-        }),
+        loaders.resolveUrlLoaderCreator(),
+        loaders.sassLoaderCreator(),
     ]);
 };
 
