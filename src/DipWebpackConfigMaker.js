@@ -83,10 +83,13 @@ class DipWebpackConfigMaker {
             [ALL_LOADER_RULE_NAMES.cssLoaderRule]: loaderRules.cssLoaderRule(),
             [ALL_LOADER_RULE_NAMES.fileUrlLoaderRule]: loaderRules.fileUrlLoaderRule(),
         };
-        const devRules = deepExtend({}, commonRules, {
+        const devRules = {
+            ...commonRules,
             [ALL_LOADER_RULE_NAMES.eslintLoaderRule]: loaderRules.eslintLoaderRule(),
-        });
-        const prdRules = deepExtend({}, commonRules, {});
+        };
+        const prdRules = {
+            ...commonRules,
+        };
 
         this.rules = getDataFromEnv(commonRules, {
             [ENV_TYPES.development]: devRules,
