@@ -9,6 +9,10 @@ function getDefaultWebpackConfig() {
     return getDataFromEnv({
         devtool: undefined,
         cache: true,
+        resolve: {
+            // default file extension when import or require modules
+            extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+        },
         node: {
             // 避免某些npm包（例如browserslist）的代码中使用了node的fs模块，
             // 但是在浏览器环境中是没有fs模块的，导致浏览器中抛错
