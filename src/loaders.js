@@ -96,6 +96,13 @@ const babelLoader = () => {
     });
 };
 
+const tsLoader = () => {
+    return getDataFromEnv({
+        loader: 'ts-loader',
+        options: {},
+    });
+};
+
 const htmlLoader = () => getDataFromEnv({
     loader: 'html-loader',
     options: {
@@ -144,6 +151,7 @@ const sassLoaderCreator = loaderCreator(sassLoader);
 const cssLoaderCreator = loaderCreator(cssLoader);
 const styleLoaderCreator = loaderCreator(styleLoader);
 const babelLoaderCreator = loaderCreator(babelLoader);
+const tsLoaderCreator = loaderCreator(tsLoader);
 const resolveUrlLoaderCreator = loaderCreator(resolveUrlLoader);
 const htmlLoaderCreator = loaderCreator(htmlLoader);
 const fileLoaderCreator = loaderCreator(fileLoader);
@@ -158,6 +166,7 @@ export {
     cssLoaderCreator,
     styleLoaderCreator,
     babelLoaderCreator,
+    tsLoaderCreator,
     resolveUrlLoaderCreator,
     htmlLoaderCreator,
     fileLoaderCreator,

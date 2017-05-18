@@ -1,7 +1,7 @@
 {
   "name": "dip-webpack-config",
   "description": "",
-  "version": "2.0.9",
+  "version": "2.1.0",
   "main": "lib/index.js",
   "peerDependencies": {
     "webpack": "2.x"
@@ -47,6 +47,7 @@
     "resolve-url-loader": "^2.0.2",
     "sass-loader": "^6.0.5",
     "style-loader": "^0.17.0",
+    "ts-loader": "^2.0.3",
     "url-loader": "^0.5.8",
     "webpack-dev-server": "^2.4.5",
     "webpack-merge": "^4.1.0"

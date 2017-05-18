@@ -33,13 +33,25 @@ const externalHtmlLoaderRule = () => {
 
 const jsLoaderRule = () => {
     return {
-        test: /\.js$/,
+        test: /\.js(x?)$/,
         exclude: [
             // 排除非node_modules/xmui的node_modules
             // /node_modules\/(?!xmui)/
             /node_modules/,
         ],
         use: loaderChains.jsLoaderChain(),
+    };
+};
+
+const tsLoaderRule = () => {
+    return {
+        test: /\.ts(x?)$/,
+        exclude: [
+            // 排除非node_modules/xmui的node_modules
+            // /node_modules\/(?!xmui)/
+            /node_modules/,
+        ],
+        use: loaderChains.tsLoaderChain(),
     };
 };
 
@@ -87,6 +99,7 @@ export {
     htmlLoaderRule,
     externalHtmlLoaderRule,
     jsLoaderRule,
+    tsLoaderRule,
     sassLoaderRule,
     moduleSassLoaderRule,
     cssLoaderRule,

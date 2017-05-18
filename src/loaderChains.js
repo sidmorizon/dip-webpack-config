@@ -77,6 +77,23 @@ const jsLoaderChain = () => getDataFromEnv([
     ],
 });
 
+const tsLoaderChain = () => getDataFromEnv([
+    loaders.babelLoaderCreator(),
+    loaders.tsLoaderCreator(),
+], {
+    [ENV_TYPES.development]: [
+        // react-hot-loader这个已经挪到babelrc中了
+        // loaders.reactHotLoaderCreator(),
+        loaders.babelLoaderCreator(),
+        loaders.tsLoaderCreator(),
+    ],
+    [ENV_TYPES.production]: [
+        loaders.babelLoaderCreator(),
+        loaders.tsLoaderCreator(),
+    ],
+});
+
+
 const fileUrlLoaderChain = () => getDataFromEnv([
     loaders.urlLoaderCreator(),
 ]);
@@ -94,6 +111,7 @@ export {
     htmlLoaderChain,
     externalHtmlLoaderChain,
     jsLoaderChain,
+    tsLoaderChain,
     fileUrlLoaderChain,
     eslintLoaderChain,
 };
