@@ -42,12 +42,16 @@ const commonsChunkPlugin = () => {
     }
 
     return new webpack.optimize.CommonsChunkPlugin({
-        names: [
-            'vendors', // 这里对应的就是entry里的 vendors
-            'manifest', // 必须将manifest独立出来,否则会位于vendors中,导致vendors的md5永远在变化
-        ].concat(dipConfig.commonChunks),
+        names: dipConfig.commonChunks && dipConfig.commonChunks.length > 0
+            ? dipConfig.commonChunks
+            : [
+                // 这里是有依赖顺序的，前面的chunk（html中输出靠后）将依赖后面的chunk（html中输出靠前）
+                'vendors', // 这里对应的就是entry里的 vendors
+                'manifest', // 必须将manifest独立出来,否则会位于vendors中,导致vendors的md5永远在变化
+            ],
         filename: chunkFileName,
-    });
+    })
+        ;
 };
 
 const htmlWebpackPlugin = () => {
